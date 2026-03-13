@@ -7,7 +7,7 @@
   ],
   "functions": {
     "api/cron.py": {
-      "runtime": "@vercel/python@4.4.4",
+      "runtime": "@vercel/python",
       "maxDuration": 300
     }
   }
