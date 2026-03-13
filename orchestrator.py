@@ -21,14 +21,14 @@ from typing import Optional
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # CONFIG — all from environment variables
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CLAUDE_KEY      = os.environ['CLAUDE_KEY']
-SENDGRID_KEY    = os.environ['SENDGRID_KEY']
-SERPER_KEY      = os.environ['SERPER_KEY']
-REDDIT_ID       = os.environ['REDDIT_CLIENT_ID']
-REDDIT_SECRET   = os.environ['REDDIT_CLIENT_SECRET']
-SUPABASE_URL    = os.environ['SUPABASE_URL']
-SUPABASE_KEY    = os.environ['SUPABASE_KEY']
-OWNER_EMAIL     = os.environ['OWNER_EMAIL']        # your email for daily report
+CLAUDE_KEY      = os.environ.get('CLAUDE_KEY', '')
+SENDGRID_KEY    = os.environ.get('SENDGRID_KEY', '')
+SERPER_KEY      = os.environ.get('SERPER_KEY', '')
+REDDIT_ID       = os.environ.get('REDDIT_CLIENT_ID', '')
+REDDIT_SECRET   = os.environ.get('REDDIT_CLIENT_SECRET', '')
+SUPABASE_URL    = os.environ.get('SUPABASE_URL', '')
+SUPABASE_KEY    = os.environ.get('SUPABASE_KEY', '')
+OWNER_EMAIL     = os.environ.get('OWNER_EMAIL', '')        # your email for daily report
 SITE_URL        = 'https://bizlegal-ai.com'
 FROM_EMAIL      = f'outreach@bizlegal-ai.com'
 FROM_NAME       = 'BizLegal AI'
