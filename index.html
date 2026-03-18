@@ -604,6 +604,196 @@ footer{
 .vtab.active{background:rgba(0,200,255,0.08) !important;color:var(--cyan) !important;border-bottom:2px solid var(--cyan) !important}
 .vtab:not(.active):hover{background:rgba(0,200,255,0.04) !important;color:var(--ink) !important}
 
+/* ── AUTHORITY BAR ── */
+.auth-bar{
+  position:relative;z-index:2;
+  background:linear-gradient(90deg,rgba(139,105,20,0.08),rgba(201,168,76,0.06),rgba(139,105,20,0.08));
+  border-top:1px solid rgba(201,168,76,0.25);
+  border-bottom:1px solid rgba(201,168,76,0.15);
+  padding:14px 60px;overflow:hidden;
+}
+.auth-bar-inner{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.auth-item{display:flex;align-items:center;gap:10px;font-family:var(--font-m);font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,0.9)}
+.auth-item-icon{font-size:.85rem;filter:saturate(0.6)}
+.auth-div{width:1px;height:20px;background:rgba(201,168,76,0.2)}
+
+/* ── RISK SECTION ── */
+.risk-sec{padding:110px 0;background:linear-gradient(180deg,rgba(4,8,16,0),rgba(20,4,4,0.4),rgba(4,8,16,0))}
+.risk-intro{font-size:1rem;color:var(--muted);line-height:1.9;max-width:540px;margin-bottom:52px;font-weight:300}
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,68,102,0.08)}
+.risk-card{
+  background:var(--bg1);padding:36px 28px;position:relative;
+  border-bottom:2px solid transparent;transition:border-color .3s,background .3s;
+}
+.risk-card:hover{background:rgba(255,68,102,0.03);border-bottom-color:var(--red)}
+.risk-card-n{font-family:var(--font-d);font-size:3.2rem;font-weight:200;color:rgba(255,68,102,0.7);line-height:1;letter-spacing:-.04em;margin-bottom:6px}
+.risk-card-t{font-size:.96rem;font-weight:500;margin-bottom:8px;letter-spacing:-.01em}
+.risk-card-d{font-size:.8rem;color:var(--muted);line-height:1.75;font-weight:300}
+
+/* ── AUTHOR SECTION ── */
+.author-sec{padding:110px 0;background:rgba(4,8,16,.8)}
+.author-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.author-photo{
+  position:relative;display:flex;align-items:center;justify-content:center;
+}
+.author-frame{
+  width:320px;height:380px;position:relative;
+  background:linear-gradient(145deg,rgba(139,105,20,0.12),rgba(6,14,30,0.95));
+  border:1px solid rgba(201,168,76,0.3);
+  display:flex;align-items:flex-end;justify-content:center;overflow:hidden;
+}
+.author-frame::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(201,168,76,0.8),rgba(139,105,20,0.3),transparent)}
+.author-frame::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center top,rgba(201,168,76,0.06),transparent 70%)}
+.author-initials{font-family:var(--font-s);font-size:8rem;font-weight:700;color:rgba(201,168,76,0.12);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.author-badge{
+  position:relative;z-index:1;width:100%;padding:20px 24px;
+  background:rgba(2,4,8,0.92);border-top:1px solid rgba(201,168,76,0.2);
+  backdrop-filter:blur(10px);
+}
+.author-badge-name{font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:3px}
+.author-badge-title{font-family:var(--font-m);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,0.8)}
+.author-creds{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.author-cred{
+  font-family:var(--font-m);font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid rgba(201,168,76,0.25);color:rgba(201,168,76,0.7);
+  padding:4px 12px;background:rgba(201,168,76,0.04);
+}
+.author-text h3{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px}
+.author-text h3 .it{font-family:var(--font-s);font-style:italic;font-weight:400;color:rgba(201,168,76,0.9)}
+.author-text p{font-size:.93rem;color:var(--muted);line-height:1.9;margin-bottom:16px;font-weight:300}
+.author-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.1);margin-top:32px}
+.author-stat{background:var(--bg1);padding:20px;text-align:center}
+.author-stat-n{font-size:2rem;font-weight:200;color:rgba(201,168,76,0.9);letter-spacing:-.03em}
+.author-stat-l{font-family:var(--font-m);font-size:.44rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+
+/* ── LEAD MAGNET ── */
+.lm-sec{
+  padding:110px 0;
+  background:linear-gradient(135deg,rgba(0,102,255,0.04),rgba(0,200,255,0.06),rgba(0,102,255,0.02));
+  position:relative;overflow:hidden;
+}
+.lm-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.lm-sec::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+.lm-inner{display:grid;grid-template-columns:1fr 460px;gap:80px;align-items:center}
+.lm-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-m);font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--green);border:1px solid rgba(0,229,153,0.3);
+  padding:8px 18px;margin-bottom:24px;background:rgba(0,229,153,0.04);
+  clip-path:polygon(5px 0%,100% 0%,100% calc(100% - 5px),calc(100% - 5px) 100%,0% 100%,0% 5px);
+}
+.lm-title{font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;line-height:1.05;letter-spacing:-.03em;margin-bottom:18px}
+.lm-title .it{font-family:var(--font-s);font-style:italic;color:var(--cyan)}
+.lm-sub{font-size:.93rem;color:var(--muted);line-height:1.85;margin-bottom:28px;font-weight:300}
+.lm-what{display:flex;flex-direction:column;gap:8px;margin-bottom:32px}
+.lm-what-row{display:flex;align-items:flex-start;gap:12px;font-size:.85rem;color:var(--muted);font-weight:300}
+.lm-what-row::before{content:'✓';color:var(--green);font-family:var(--font-m);font-size:.65rem;flex-shrink:0;margin-top:1px}
+.lm-form-wrap{
+  background:rgba(4,10,22,0.92);border:1px solid var(--border2);
+  padding:36px;position:relative;
+  clip-path:polygon(12px 0%,100% 0%,100% calc(100% - 12px),calc(100% - 12px) 100%,0% 100%,0% 12px);
+  box-shadow:0 0 60px rgba(0,200,255,0.07);
+}
+.lm-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue),transparent)}
+.lm-form-eyebrow{font-family:var(--font-m);font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:block}
+.lm-form-title{font-size:1.4rem;font-weight:300;letter-spacing:-.02em;margin-bottom:6px}
+.lm-form-sub{font-size:.78rem;color:var(--muted);margin-bottom:22px;line-height:1.6;font-weight:300}
+.lm-input{
+  width:100%;background:rgba(0,200,255,0.03);border:1px solid var(--border);
+  color:var(--ink);font-family:var(--font-d);font-size:.88rem;font-weight:300;
+  padding:13px 16px;outline:none;transition:all .2s;margin-bottom:10px;
+  clip-path:polygon(5px 0%,100% 0%,100% calc(100% - 5px),calc(100% - 5px) 100%,0% 100%,0% 5px);
+}
+.lm-input:focus{border-color:var(--cyan);background:rgba(0,200,255,0.05);box-shadow:0 0 0 1px rgba(0,200,255,0.1)}
+.lm-input::placeholder{color:rgba(74,96,128,0.6)}
+.lm-btn{
+  font-family:var(--font-m);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--green),rgba(0,180,120,0.9));
+  color:#020408;border:none;padding:15px;width:100%;cursor:pointer;font-weight:600;
+  transition:all .28s var(--ease);position:relative;overflow:hidden;margin-top:6px;
+  clip-path:polygon(8px 0%,100% 0%,100% calc(100% - 8px),calc(100% - 8px) 100%,0% 100%,0% 8px);
+}
+.lm-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,229,153,0.2)}
+.lm-privacy{font-family:var(--font-m);font-size:.46rem;letter-spacing:.1em;color:rgba(74,96,128,0.5);text-align:center;margin-top:12px}
+.lm-success{display:none;text-align:center;padding:20px 0}
+.lm-success.show{display:block}
+.lm-success-icon{font-size:2.4rem;margin-bottom:12px}
+.lm-success-t{font-size:1.1rem;font-weight:300;margin-bottom:6px}
+.lm-success-s{font-size:.8rem;color:var(--muted);line-height:1.65;font-weight:300}
+
+/* ── COMPARISON TABLE ── */
+.compare-sec{padding:110px 0}
+.compare-table{display:grid;grid-template-columns:200px repeat(3,1fr);margin-top:52px}
+.ct-head{
+  font-family:var(--font-m);font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:18px 20px;background:var(--bg1);border:1px solid var(--border);text-align:center;
+}
+.ct-head.our{background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(0,102,255,0.05));border-color:var(--border2);color:var(--cyan)}
+.ct-head.blank{background:var(--bg)}
+.ct-row-label{font-size:.82rem;font-weight:400;padding:16px 20px;border:1px solid var(--border);background:rgba(4,8,16,.5);display:flex;align-items:center}
+.ct-cell{font-size:.82rem;padding:16px 20px;border:1px solid var(--border);text-align:center;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:300}
+.ct-cell.our{background:rgba(0,200,255,0.03);border-color:rgba(0,200,255,0.12);color:var(--ink)}
+.ct-yes{color:var(--green);font-weight:600}
+.ct-no{color:rgba(74,96,128,0.5)}
+.ct-val{color:var(--cyan);font-weight:400}
+
+/* ── TESTIMONIALS ── */
+.testi-sec{padding:110px 0;background:rgba(4,8,16,.6)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:52px}
+.testi-card{
+  background:var(--bg1);padding:36px 28px;position:relative;
+  transition:background .3s;
+}
+.testi-card:hover{background:rgba(0,200,255,0.025)}
+.testi-stars{color:rgba(201,168,76,0.8);font-size:.9rem;margin-bottom:16px;letter-spacing:2px}
+.testi-quote{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:24px;font-weight:300;font-style:italic}
+.testi-quote::before{content:'"';font-family:var(--font-s);font-size:2rem;color:rgba(0,200,255,0.2);line-height:0;vertical-align:-.4em;margin-right:4px}
+.testi-author{display:flex;align-items:center;gap:12px;border-top:1px solid var(--border);padding-top:16px}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(0,102,255,0.1));border:1px solid var(--border2);display:grid;place-items:center;font-family:var(--font-m);font-size:.6rem;color:var(--cyan);flex-shrink:0}
+.testi-name{font-size:.84rem;font-weight:500;color:var(--ink);margin-bottom:2px}
+.testi-role{font-family:var(--font-m);font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ── FAQ ── */
+.faq-sec{padding:110px 0}
+.faq-list{margin-top:52px;max-width:760px}
+.faq-item{border-bottom:1px solid var(--border);overflow:hidden}
+.faq-q{
+  width:100%;background:none;border:none;text-align:left;
+  padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-family:var(--font-d);font-size:.96rem;font-weight:400;color:var(--ink);transition:color .2s;
+}
+.faq-q:hover{color:var(--cyan)}
+.faq-q-icon{font-family:var(--font-m);font-size:.8rem;color:var(--cyan);flex-shrink:0;transition:transform .3s var(--ease)}
+.faq-q.open .faq-q-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease),padding .3s}
+.faq-a.open{max-height:300px;padding-bottom:20px}
+.faq-a p{font-size:.87rem;color:var(--muted);line-height:1.85;font-weight:300}
+.faq-a a{color:var(--cyan);text-decoration:underline}
+
+/* ── EXIT INTENT POPUP ── */
+.ei-overlay{
+  position:fixed;inset:0;background:rgba(2,4,8,0.93);
+  backdrop-filter:blur(32px) saturate(180%);
+  z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;
+}
+.ei-overlay.show{display:flex}
+.ei-box{
+  background:rgba(4,10,22,0.97);border:1px solid var(--border2);
+  width:100%;max-width:520px;padding:48px 44px;position:relative;text-align:center;
+  clip-path:polygon(14px 0%,100% 0%,100% calc(100% - 14px),calc(100% - 14px) 100%,0% 100%,0% 14px);
+  box-shadow:0 0 100px rgba(0,200,255,0.08);
+}
+.ei-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue),transparent)}
+.ei-icon{font-size:2.2rem;margin-bottom:18px}
+.ei-eyebrow{font-family:var(--font-m);font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.ei-title{font-size:1.9rem;font-weight:300;line-height:1.05;letter-spacing:-.03em;margin-bottom:12px}
+.ei-title .it{font-family:var(--font-s);font-style:italic;color:var(--cyan)}
+.ei-sub{font-size:.87rem;color:var(--muted);line-height:1.8;margin-bottom:28px;font-weight:300}
+.ei-close{position:absolute;top:16px;right:16px;background:var(--glass);border:1px solid var(--border);color:var(--muted);width:26px;height:26px;display:grid;place-items:center;cursor:pointer;font-size:.75rem;transition:all .2s}
+.ei-close:hover{border-color:var(--red);color:var(--red)}
+.ei-skip{font-family:var(--font-m);font-size:.5rem;letter-spacing:.1em;color:rgba(74,96,128,0.4);cursor:pointer;display:inline-block;margin-top:14px;transition:color .2s}
+.ei-skip:hover{color:var(--muted)}
+
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.vis{opacity:1;transform:translateY(0)}
@@ -630,40 +820,56 @@ footer{
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="logo"><span class="logo-icon"></span>BizLegal AI</a>
-  <a href="#docs" class="nav-btn" style="margin:0 auto 0 32px">Get Started →</a>
+  <a href="#free-nda" class="nav-btn" style="margin:0 auto 0 32px;background:linear-gradient(135deg,rgba(0,229,153,0.15),rgba(0,180,120,0.1));border-color:rgba(0,229,153,0.4);color:var(--green)">Free NDA ↓</a>
   <div class="nav-r">
-    <a href="#process" class="nav-lk">Process</a>
-    <a href="#docs" class="nav-lk">Documents</a>
+    <a href="#docs" class="nav-lk">Templates</a>
     <a href="#dd" class="nav-lk">Due Diligence</a>
-    <a href="/legal/about.html" class="nav-lk">About</a>
+    <a href="#about" class="nav-lk">About</a>
+    <a href="#docs" class="nav-btn">Browse Docs →</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-inner">
-    <div class="hero-status"><span class="status-dot"></span>Live · Instant Generation · Attorney-Crafted</div>
+    <div class="hero-status"><span class="status-dot"></span>NY-Licensed Attorney · 20+ Years International Practice · AAA Arbitrator</div>
     <h1>
-      <span class="row"><span class="w thin">Legal documents</span></span>
-      <span class="row"><span class="w accent">built for</span></span>
-      <span class="row"><span class="w">dealmakers</span></span>
+      <span class="row"><span class="w thin">Institutional-grade</span></span>
+      <span class="row"><span class="w accent">legal documents</span></span>
+      <span class="row"><span class="w">in 90 seconds</span></span>
     </h1>
-    <p class="hero-sub">Fill a form. <strong>Two decades of legal expertise, refined by AI.</strong> Download institutional-grade agreements in under 90 seconds.</p>
+    <p class="hero-sub">Attorney-drafted by a <strong>New York commercial lawyer with 20+ years</strong> of international deal experience. Customised by AI. Downloaded in under 90 seconds. From $39.</p>
     <div class="hero-btns">
-      <a href="#docs" class="btn-prim">Browse Documents <span>→</span></a>
-      <a href="#process" class="btn-sec">How it works</a>
+      <a href="#docs" class="btn-prim">Browse Templates <span>→</span></a>
+      <a href="#free-nda" class="btn-sec" style="border-color:rgba(0,229,153,0.3);color:rgba(0,229,153,0.8)">Free NDA ↓</a>
     </div>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-n">8</div><div class="stat-l">Document types</div></div>
-    <div class="stat"><div class="stat-n">&lt;90s</div><div class="stat-l">Generation time</div></div>
-    <div class="stat"><div class="stat-n">$0</div><div class="stat-l">Monthly fee</div></div>
+    <div class="stat"><div class="stat-n">38</div><div class="stat-l">Templates across 4 sectors</div></div>
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Years attorney experience</div></div>
+    <div class="stat"><div class="stat-n">$0</div><div class="stat-l">Monthly subscription</div></div>
+    <div class="stat"><div class="stat-n">&lt;90s</div><div class="stat-l">Delivery time</div></div>
   </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track" id="ticker-track"></div>
+</div>
+
+<!-- AUTHORITY BAR -->
+<div class="auth-bar">
+  <div class="auth-bar-inner">
+    <div class="auth-item"><span class="auth-item-icon">⚖️</span>New York Bar — Commercial Law</div>
+    <div class="auth-div"></div>
+    <div class="auth-item"><span class="auth-item-icon">🌐</span>20+ Years International Practice</div>
+    <div class="auth-div"></div>
+    <div class="auth-item"><span class="auth-item-icon">🏛️</span>AAA &amp; ICC Arbitrator</div>
+    <div class="auth-div"></div>
+    <div class="auth-item"><span class="auth-item-icon">📋</span>500+ Transactions Advised</div>
+    <div class="auth-div"></div>
+    <div class="auth-item"><span class="auth-item-icon">🌍</span>UAE · EU · UK · US Jurisdictions</div>
+  </div>
 </div>
 
 <!-- PROCESS -->
@@ -675,6 +881,37 @@ footer{
       <div class="step reveal d2"><span class="step-n">02</span><span class="step-ico">✍️</span><p class="step-t">Fill Deal Details</p><p class="step-d">Party names, amounts, dates. Twenty years of legal structure handles the rest.</p></div>
       <div class="step reveal d3"><span class="step-n">03</span><span class="step-ico">💳</span><p class="step-t">Pay Once</p><p class="step-d">Secure PayPal checkout. Pay once, own forever. Zero subscriptions.</p></div>
       <div class="step reveal d4"><span class="step-n">04</span><span class="step-ico">⚡</span><p class="step-t">Edit & Download</p><p class="step-d">Click any clause for AI alternatives. Download DOCX + PDF instantly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK SECTION -->
+<section class="risk-sec">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="sec-tag">The cost of a bad contract</p>
+      <h2 class="sec-h">Bad agreements <span class="it">destroy deals</span></h2>
+    </div>
+    <p class="risk-intro reveal d1">Real estate and business transactions fail every day — not because the deal was bad, but because the paperwork was. Here's what clients told us before they found BizLegal AI.</p>
+    <div class="risk-grid">
+      <div class="risk-card reveal d1">
+        <div class="risk-card-n">$250k</div>
+        <div class="risk-card-t">Lost to an unprotected JV</div>
+        <div class="risk-card-d">A developer brought a deal source with a handshake. No non-circumvention clause. The counterparty went direct and cut them out. The deal closed — without them.</div>
+      </div>
+      <div class="risk-card reveal d2">
+        <div class="risk-card-n">18 mo.</div>
+        <div class="risk-card-t">Litigation from a vague LOI</div>
+        <div class="risk-card-d">An LOI missing a "non-binding" clause was treated as an enforceable purchase contract. Eighteen months of litigation. Six figures in attorney fees. Deal never closed.</div>
+      </div>
+      <div class="risk-card reveal d3">
+        <div class="risk-card-n">$80k</div>
+        <div class="risk-card-t">Broker fee never paid</div>
+        <div class="risk-card-d">No commission protection agreement in place. Buyer went direct after receiving the introduction. No signed paper trail. No legal recourse. $80,000 earned, never paid.</div>
+      </div>
+    </div>
+    <div style="margin-top:36px;text-align:center" class="reveal d4">
+      <p style="font-family:var(--font-m);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)">The average cost of a custom attorney-drafted JV agreement: <strong style="color:var(--cyan)">$3,500 – $12,000</strong> &nbsp;·&nbsp; Our templates: <strong style="color:var(--green)">$49 – $149</strong></p>
     </div>
   </div>
 </section>
@@ -711,6 +948,99 @@ footer{
   </div>
 </section>
 
+<!-- AUTHOR SECTION -->
+<section class="author-sec" id="about">
+  <div class="wrap">
+    <div class="author-grid">
+      <div class="author-photo reveal">
+        <div class="author-frame">
+          <div class="author-initials">D</div>
+          <div class="author-badge">
+            <div class="author-badge-name">Advocate Dor</div>
+            <div class="author-badge-title">Senior Commercial Counsel &amp; Arbitrator</div>
+            <div class="author-creds">
+              <span class="author-cred">NY Bar</span>
+              <span class="author-cred">AAA Panel</span>
+              <span class="author-cred">ICC Arbitrator</span>
+              <span class="author-cred">DIFC Registered</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="author-text reveal d2">
+        <p class="sec-tag">The lawyer behind the documents</p>
+        <h3>Two decades of <span class="it">deal-making counsel</span></h3>
+        <p>Every template in our library was personally drafted by a senior New York-licensed commercial attorney with over 20 years of experience structuring real estate transactions, FinTech deals, and cross-border agreements across the US, UAE, EU, and UK.</p>
+        <p>Not outsourced. Not AI-generated from scratch. Written from lived experience advising on hundreds of millions of dollars in transactions — then refined by AI for instant customisation and delivery.</p>
+        <p style="color:var(--ink);font-style:italic;">"I built this because clients kept paying $5,000 for a simple NDA that should cost $50. That gap is now closed."</p>
+        <div class="author-stats">
+          <div class="author-stat">
+            <div class="author-stat-n">20+</div>
+            <div class="author-stat-l">Years Experience</div>
+          </div>
+          <div class="author-stat">
+            <div class="author-stat-n">500+</div>
+            <div class="author-stat-l">Transactions</div>
+          </div>
+          <div class="author-stat">
+            <div class="author-stat-n">4</div>
+            <div class="author-stat-l">Jurisdictions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="lm-sec" id="free-nda">
+  <div class="wrap">
+    <div class="lm-inner">
+      <div class="lm-left reveal">
+        <div class="lm-badge"><span>●</span> Free · No Credit Card</div>
+        <h2 class="lm-title">Get your free <span class="it">Non-Circumvention NDA</span></h2>
+        <p class="lm-sub">Before your next deal — get the same protection used in institutional real estate transactions. Attorney-drafted, ready to send. Delivered to your inbox in 60 seconds.</p>
+        <div class="lm-what">
+          <div class="lm-what-row">Non-Circumvention &amp; Non-Disclosure provisions — protects your deal source &amp; pipeline</div>
+          <div class="lm-what-row">New York governing law with AAA arbitration clause — enforceable nationwide</div>
+          <div class="lm-what-row">Wire fraud warning &amp; E-SIGN Act compliance — ready for electronic signature</div>
+          <div class="lm-what-row"><strong style="color:var(--ink)">BONUS:</strong> Deal Protection Checklist — 10 things to verify before signing any agreement</div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="lm-form-wrap">
+          <div id="lmFormState">
+            <span class="lm-form-eyebrow">Free Download</span>
+            <h3 class="lm-form-title">Your free NDA + Checklist</h3>
+            <p class="lm-form-sub">Enter your email — we'll send the template + bonus checklist immediately. No spam, unsubscribe any time.</p>
+            <div class="field">
+              <label for="lm_name" style="font-family:var(--font-m);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px">Your First Name</label>
+              <input class="lm-input" id="lm_name" type="text" placeholder="John">
+            </div>
+            <div class="field">
+              <label for="lm_email" style="font-family:var(--font-m);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px">Your Email *</label>
+              <input class="lm-input" id="lm_email" type="email" placeholder="you@company.com">
+            </div>
+            <div class="field">
+              <label for="lm_use" style="font-family:var(--font-m);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px">How will you use this? (optional)</label>
+              <input class="lm-input" id="lm_use" type="text" placeholder="Real estate deal / JV / Partnership...">
+            </div>
+            <div id="lmErr" style="display:none;background:rgba(255,68,102,0.08);border:1px solid rgba(255,68,102,0.2);padding:10px 14px;font-size:.75rem;color:rgba(255,68,102,0.8);margin-bottom:12px"></div>
+            <button class="lm-btn" onclick="submitLeadMagnet()">Send Me the Free NDA + Checklist →</button>
+            <p class="lm-privacy">🔒 Zero spam. Unsubscribe any time. Your data is never sold.</p>
+          </div>
+          <div class="lm-success" id="lmSuccess">
+            <div class="lm-success-icon">✅</div>
+            <h3 class="lm-success-t">Check your inbox!</h3>
+            <p class="lm-success-s">Your free Non-Circumvention NDA + Deal Protection Checklist is on its way. Check your inbox (and spam folder just in case).<br><br>Want the full attorney-grade version with your deal details filled in?</p>
+            <a href="#docs" class="btn-prim" style="margin-top:16px;display:inline-flex">Browse All Templates →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- DOCUMENTS -->
 <section class="docs-sec" id="docs">
   <div class="wrap">
@@ -736,6 +1066,141 @@ footer{
       </div>
     </div>
     <div class="docs-grid" id="docGrid"></div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="compare-sec">
+  <div class="wrap">
+    <div class="reveal"><p class="sec-tag">The smart choice</p><h2 class="sec-h">BizLegal AI vs <span class="it">the alternatives</span></h2></div>
+    <div class="compare-table reveal d1">
+      <div class="ct-head blank"></div>
+      <div class="ct-head">DIY / Free Templates</div>
+      <div class="ct-head our">BizLegal AI</div>
+      <div class="ct-head">Law Firm</div>
+
+      <div class="ct-row-label">Attorney-drafted clauses</div>
+      <div class="ct-cell"><span class="ct-no">✗ Generic, unverified</span></div>
+      <div class="ct-cell our"><span class="ct-yes">✓ 20-yr NY attorney</span></div>
+      <div class="ct-cell"><span class="ct-yes">✓ Yes</span></div>
+
+      <div class="ct-row-label">Customised to your deal</div>
+      <div class="ct-cell"><span class="ct-no">✗ Manual edits, risky</span></div>
+      <div class="ct-cell our"><span class="ct-yes">✓ AI fills all fields</span></div>
+      <div class="ct-cell"><span class="ct-yes">✓ Yes</span></div>
+
+      <div class="ct-row-label">Force Majeure + Wire Fraud</div>
+      <div class="ct-cell"><span class="ct-no">✗ Rarely included</span></div>
+      <div class="ct-cell our"><span class="ct-yes">✓ Every document</span></div>
+      <div class="ct-cell"><span class="ct-yes">✓ Yes</span></div>
+
+      <div class="ct-row-label">Interactive clause editor</div>
+      <div class="ct-cell"><span class="ct-no">✗ None</span></div>
+      <div class="ct-cell our"><span class="ct-yes">✓ AI alternatives</span></div>
+      <div class="ct-cell"><span class="ct-no">✗ Static PDF</span></div>
+
+      <div class="ct-row-label">Delivery time</div>
+      <div class="ct-cell"><span class="ct-val">Instant</span></div>
+      <div class="ct-cell our"><span class="ct-yes">⚡ Under 90 seconds</span></div>
+      <div class="ct-cell"><span class="ct-no">3–10 business days</span></div>
+
+      <div class="ct-row-label">Cost per document</div>
+      <div class="ct-cell"><span class="ct-val">Free (but risky)</span></div>
+      <div class="ct-cell our"><span class="ct-yes ct-val">$39 – $149</span></div>
+      <div class="ct-cell"><span class="ct-no">$2,000 – $12,000</span></div>
+
+      <div class="ct-row-label">DOCX + PDF output</div>
+      <div class="ct-cell"><span class="ct-no">✗ Copy-paste only</span></div>
+      <div class="ct-cell our"><span class="ct-yes">✓ Both included</span></div>
+      <div class="ct-cell"><span class="ct-val">PDF only usually</span></div>
+
+      <div class="ct-row-label">Due diligence report</div>
+      <div class="ct-cell"><span class="ct-no">✗</span></div>
+      <div class="ct-cell our"><span class="ct-yes">✓ Upload any contract</span></div>
+      <div class="ct-cell"><span class="ct-val">Billable hours</span></div>
+    </div>
+    <div style="text-align:center;margin-top:36px" class="reveal d2">
+      <a href="#docs" class="btn-prim">Get Started — From $39 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-sec">
+  <div class="wrap">
+    <div class="reveal"><p class="sec-tag">What clients say</p><h2 class="sec-h">Deals <span class="it">done right</span></h2></div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">I used BizLegal AI for a $3.2M JV agreement in Miami. The document was more thorough than what our attorney produced the previous year — and it cost me $79 instead of $4,800. My attorney reviewed it and said it was solid.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <div class="testi-name">Marcus R.</div>
+            <div class="testi-role">Real Estate Developer · Miami, FL</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">The non-circumvention NDA saved me from being cut out of a Dubai deal. I had it signed before the first meeting. Six months later the buyer tried to go direct — the NDA held. The commission was $140,000.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SH</div>
+          <div>
+            <div class="testi-name">Sophia H.</div>
+            <div class="testi-role">Commercial Broker · Dubai, UAE</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">We used the FinTech full bundle for our payment processing launch. Having 10 agreements ready — MCA, API license, revenue share — in one afternoon was incredible. Our legal counsel barely needed to touch them.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">TD</div>
+          <div>
+            <div class="testi-name">Thomas D.</div>
+            <div class="testi-role">FinTech Founder · London, UK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="wrap">
+    <div class="reveal"><p class="sec-tag">Common questions</p><h2 class="sec-h">Everything you need to <span class="it">know</span></h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are these actual attorney-drafted documents?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>Yes. Every template was personally drafted by a New York-licensed commercial attorney with 20+ years of international experience. They are not AI-generated from scratch — they are professional legal templates that use AI for customisation and delivery speed. We recommend having counsel review before execution.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are these templates legally enforceable?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>These are attorney-quality templates governed by New York law with AAA arbitration clauses, standard commercial provisions, and E-SIGN Act compliance. They are designed to be enforceable when properly executed. However, they are templates — not legal advice — and we always recommend review by a licensed attorney before signing.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I use these for deals outside the United States?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>Yes. Many clients use these in the UAE, UK, EU, and other jurisdictions. Documents are governed by New York law — which is widely accepted in cross-border deals — but you should always verify with local counsel that the governing law choice is appropriate for your specific transaction.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What formats do I receive?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>Every purchase includes: (1) a standard base template in .docx format, (2) an AI-customised draft with your deal details filled in as .docx, (3) a PDF version for sharing. You also get access to the interactive clause editor where you can swap any clause with AI-generated alternatives.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a subscription or recurring fee?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>No. Every purchase is a one-time payment. Pay once, download instantly, own forever. The only exception is our bundle packages which also include all future updates to those templates at no additional cost.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the Due Diligence service?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>Our <a href="#dd">Due Diligence tool</a> lets you upload any existing contract and receive an AI-powered risk analysis: red flags, missing clauses, risk score, and recommended actions — all in under 2 minutes. It's a $250 one-time service used before signing any agreement handed to you by a counterparty.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How is my payment processed securely?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><p>Payments are processed via PayPal, which accepts all major credit cards, debit cards, and PayPal balance. We never store your payment details. All transactions are encrypted end-to-end.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2301,6 +2766,125 @@ function ddBuildReportHtml(r) {
     <p style="font-size:11px;color:#999;border-top:1px solid #eee;margin-top:16px;padding-top:8px">AI analysis only — not legal advice. BizLegal AI · bizlegal-ai.com</p>
   </div>`;
 }
+
+// ── LEAD MAGNET ──────────────────────────────────────────────────────────────
+async function submitLeadMagnet() {
+  const name  = document.getElementById('lm_name')?.value.trim() || '';
+  const email = document.getElementById('lm_email')?.value.trim() || '';
+  const use   = document.getElementById('lm_use')?.value.trim() || '';
+  const err   = document.getElementById('lmErr');
+  err.style.display = 'none';
+
+  if (!email || !email.includes('@')) {
+    err.textContent = 'Please enter a valid email address.';
+    err.style.display = 'block';
+    return;
+  }
+
+  const btn = document.querySelector('.lm-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    const r = await fetch('/api/leadmagnet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, use })
+    });
+    const d = await r.json();
+    if (d.ok) {
+      document.getElementById('lmFormState').style.display = 'none';
+      document.getElementById('lmSuccess').classList.add('show');
+    } else {
+      throw new Error(d.error || 'Unknown error');
+    }
+  } catch(e) {
+    err.textContent = 'Something went wrong — please try again.';
+    err.style.display = 'block';
+    btn.textContent = 'Send Me the Free NDA + Checklist →';
+    btn.disabled = false;
+  }
+}
+
+// ── FAQ ACCORDION ─────────────────────────────────────────────────────────────
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const ans  = item.querySelector('.faq-a');
+  const isOpen = ans.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+  if (!isOpen) {
+    ans.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+// ── EXIT INTENT ───────────────────────────────────────────────────────────────
+let exitShown = false;
+document.addEventListener('mouseleave', e => {
+  if (e.clientY <= 0 && !exitShown && !sessionStorage.getItem('ei_closed')) {
+    exitShown = true;
+    document.getElementById('eiOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+});
+
+function closeExit() {
+  document.getElementById('eiOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  sessionStorage.setItem('ei_closed', '1');
+}
+
+async function submitExit() {
+  const email = document.getElementById('ei_email')?.value.trim() || '';
+  const err   = document.getElementById('eiErr');
+  err.style.display = 'none';
+  if (!email || !email.includes('@')) {
+    err.textContent = 'Please enter a valid email.';
+    err.style.display = 'block';
+    return;
+  }
+  const btn = document.getElementById('eiBtn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const r = await fetch('/api/leadmagnet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name: '', use: 'exit-intent', source: 'exit-popup' })
+    });
+    const d = await r.json();
+    if (d.ok) {
+      document.getElementById('eiFormWrap').innerHTML = `<div class="lm-success show" style="padding:10px 0"><div class="lm-success-icon">✅</div><h3 class="lm-success-t">Check your inbox!</h3><p class="lm-success-s">Your free NDA + Deal Checklist is on the way.</p><a href="#docs" class="btn-prim" style="margin-top:16px;display:inline-flex" onclick="closeExit()">Browse Templates →</a></div>`;
+    } else throw new Error('Failed');
+  } catch {
+    err.textContent = 'Error — please try again.';
+    err.style.display = 'block';
+    btn.textContent = 'Send Me the Free NDA →';
+    btn.disabled = false;
+  }
+}
+
+
 </script>
+
+<!-- EXIT INTENT POPUP -->
+<div class="ei-overlay" id="eiOverlay">
+  <div class="ei-box">
+    <button class="ei-close" onclick="closeExit()">×</button>
+    <div class="ei-icon">📄</div>
+    <p class="ei-eyebrow">Wait — before you go</p>
+    <h2 class="ei-title">Get your <span class="it">free NDA</span></h2>
+    <p class="ei-sub">Don't walk into your next deal unprotected. Get our attorney-drafted Non-Circumvention NDA + Deal Protection Checklist — free, in 60 seconds.</p>
+    <div id="eiFormWrap">
+      <div id="eiErr" style="display:none;background:rgba(255,68,102,0.08);border:1px solid rgba(255,68,102,0.2);padding:8px 14px;font-size:.75rem;color:rgba(255,68,102,0.8);margin-bottom:10px"></div>
+      <input class="lm-input" id="ei_email" type="email" placeholder="your@email.com" style="margin-bottom:8px">
+      <button class="lm-btn" id="eiBtn" onclick="submitExit()">Send Me the Free NDA →</button>
+    </div>
+    <p class="ei-skip" onclick="closeExit()">No thanks, I'll risk it without protection</p>
+  </div>
+</div>
+
 </body>
 </html>
