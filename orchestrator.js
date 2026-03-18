@@ -8,6 +8,7 @@ const cfg = () => ({
   SUPABASE_URL:   process.env.SUPABASE_URL   || '',
   SUPABASE_KEY:   process.env.SUPABASE_KEY   || '',
   OWNER_EMAIL:    process.env.OWNER_EMAIL    || '',
+  APIFY_TOKEN:    process.env.APIFY_TOKEN    || '',
   SITE_URL:       'https://docstack.bizlegal-ai.com',
   FROM_EMAIL:     'outreach@bizlegal-ai.com',
 });
@@ -187,6 +188,197 @@ async function scrapeGoogle() {
   return leads;
 }
 
+// ── Agent 5a: Apify LinkedIn Scraper ─────────────────────────────────────────
+const APIFY_LINKEDIN_QUERIES = [
+  'real estate joint venture agreement need attorney',
+  'commercial real estate syndication legal documents investors',
+  'NDA non-disclosure real estate deal protection',
+  'real estate capital raise LLC partnership agreement',
+  'FinTech startup legal contracts agreement template',
+];
+
+async function apifyLinkedIn() {
+  const { APIFY_TOKEN } = cfg();
+  const leads = [];
+
+  for (const query of APIFY_LINKEDIN_QUERIES) {
+    try {
+      // Use Apify Google Search Scraper (actor: apify/google-search-scraper)
+      // to find LinkedIn posts about legal document needs
+      const runRes = await fetch(
+        `https://api.apify.com/v2/acts/apify~google-search-scraper/run-sync-get-dataset-items?token=${APIFY_TOKEN}&maxItems=8`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            queries: `site:linkedin.com/pulse ${query}`,
+            maxPagesPerQuery: 1,
+            resultsPerPage: 8,
+            mobileResults: false,
+          }),
+          signal: AbortSignal.timeout(60000),
+        }
+      );
+
+      if (!runRes.ok) {
+        console.error(`Apify LinkedIn run failed [${query}]:`, runRes.status);
+        continue;
+      }
+
+      const items = await runRes.json();
+      for (const item of (items || [])) {
+        const organic = item.organicResults || [];
+        for (const r of organic) {
+          if (!r.url?.includes('linkedin.com')) continue;
+          const lead = {
+            lead_id: crypto.createHash('md5').update(r.url || query + r.title).digest('hex'),
+            source: 'apify-linkedin',
+            title: (r.title || '').slice(0, 200),
+            body: (r.description || r.snippet || '').slice(0, 1000),
+            url: r.url || '',
+            author: '',
+            created_at: new Date().toISOString(),
+          };
+          if (await dbSeen(lead.lead_id)) continue;
+          await dbInsertRaw(lead);
+          leads.push(lead);
+        }
+      }
+    } catch(e) {
+      console.error(`Apify LinkedIn error [${query}]:`, e.message);
+    }
+    await sleep(1200);
+  }
+
+  console.log(`[Apify-LinkedIn] ${leads.length} leads`);
+  return leads;
+}
+
+// ── Agent 5b: Apify Reddit Scraper ───────────────────────────────────────────
+const REDDIT_SUBREDDITS = [
+  { sub: 'realestateinvesting', query: 'joint venture agreement legal documents' },
+  { sub: 'realestateinvesting', query: 'NDA non-disclosure real estate deal' },
+  { sub: 'realestate', query: 'need legal agreement template contract' },
+  { sub: 'smallbusiness', query: 'partnership agreement legal contract needed' },
+  { sub: 'Entrepreneur', query: 'NDA contract legal agreement startup' },
+  { sub: 'legaladvice', query: 'real estate joint venture agreement' },
+];
+
+async function apifyReddit() {
+  const { APIFY_TOKEN } = cfg();
+  const leads = [];
+
+  for (const { sub, query } of REDDIT_SUBREDDITS) {
+    try {
+      const runRes = await fetch(
+        `https://api.apify.com/v2/acts/trudax~reddit-scraper/run-sync-get-dataset-items?token=${APIFY_TOKEN}&maxItems=10`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            startUrls: [{ url: `https://www.reddit.com/r/${sub}/search/?q=${encodeURIComponent(query)}&sort=new` }],
+            maxPostCount: 10,
+            maxComments: 0,
+            proxy: { useApifyProxy: true },
+          }),
+          signal: AbortSignal.timeout(90000),
+        }
+      );
+
+      if (!runRes.ok) {
+        console.error(`Apify Reddit run failed [r/${sub}]:`, runRes.status);
+        continue;
+      }
+
+      const items = await runRes.json();
+      for (const post of (items || [])) {
+        if (!post.title) continue;
+        const lead = {
+          lead_id: crypto.createHash('md5').update(post.url || post.id || post.title).digest('hex'),
+          source: 'apify-reddit',
+          title: (post.title || '').slice(0, 200),
+          body: (post.body || post.selftext || post.text || '').slice(0, 1000),
+          url: post.url || `https://reddit.com/r/${sub}`,
+          author: post.author || '',
+          created_at: new Date().toISOString(),
+        };
+        if (await dbSeen(lead.lead_id)) continue;
+        await dbInsertRaw(lead);
+        leads.push(lead);
+      }
+    } catch(e) {
+      console.error(`Apify Reddit error [r/${sub}]:`, e.message);
+    }
+    await sleep(1500);
+  }
+
+  console.log(`[Apify-Reddit] ${leads.length} leads`);
+  return leads;
+}
+
+// ── Agent 5c: Apify Quora Full-Text Scraper ───────────────────────────────────
+const QUORA_TOPICS = [
+  'What legal documents do I need for a real estate joint venture',
+  'Do I need an NDA before sharing a real estate deal',
+  'How do I protect myself from being cut out of a real estate deal',
+  'What contracts do I need for real estate syndication',
+  'What is a non-circumvention agreement and do I need one',
+];
+
+async function apifyQuoraDeep() {
+  const { APIFY_TOKEN } = cfg();
+  const leads = [];
+
+  for (const q of QUORA_TOPICS) {
+    try {
+      const searchUrl = `https://www.quora.com/search?q=${encodeURIComponent(q)}`;
+      const runRes = await fetch(
+        `https://api.apify.com/v2/acts/apify~web-scraper/run-sync-get-dataset-items?token=${APIFY_TOKEN}&maxItems=5`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            startUrls: [{ url: searchUrl }],
+            pageFunction: `async function pageFunction(context) {
+              const { page, request } = context;
+              const results = [];
+              const links = await page.$$eval('a[href*="/q/"]', els => els.map(el => ({ href: el.href, text: el.innerText })).slice(0, 8));
+              return links.map(l => ({ url: l.href, title: l.text, body: '', source: 'quora' }));
+            }`,
+            proxyConfiguration: { useApifyProxy: true },
+          }),
+          signal: AbortSignal.timeout(90000),
+        }
+      );
+
+      if (!runRes.ok) continue;
+
+      const items = await runRes.json();
+      for (const item of (items || [])) {
+        if (!item.title || !item.url?.includes('quora.com')) continue;
+        const lead = {
+          lead_id: crypto.createHash('md5').update(item.url || q).digest('hex'),
+          source: 'apify-quora',
+          title: (item.title || '').slice(0, 200),
+          body: (item.body || q).slice(0, 500),
+          url: item.url || '',
+          author: '',
+          created_at: new Date().toISOString(),
+        };
+        if (await dbSeen(lead.lead_id)) continue;
+        await dbInsertRaw(lead);
+        leads.push(lead);
+      }
+    } catch(e) {
+      console.error(`Apify Quora error [${q}]:`, e.message);
+    }
+    await sleep(1000);
+  }
+
+  console.log(`[Apify-Quora] ${leads.length} leads`);
+  return leads;
+}
+
 // ── Agent 5: Qualifier ───────────────────────────────────────────────
 const TOPIC_MAP = {
   'JV Agreement':   ['jv',            'https://docstack.bizlegal-ai.com/#docs'],
@@ -314,10 +506,12 @@ async function sendReport(stats) {
         <td style="padding:8px 12px">Source</td><td style="padding:8px 12px">Raw</td>
         <td style="padding:8px 12px">Qualified</td><td style="padding:8px 12px">Emails Sent</td>
       </tr>
-      <tr><td style="padding:8px 12px">Quora</td><td>${stats.quora}</td><td>—</td><td>—</td></tr>
+      <tr><td style="padding:8px 12px">Quora (Serper)</td><td>${stats.quora}</td><td>—</td><td>—</td></tr>
       <tr style="background:#f9f9f9"><td style="padding:8px 12px">BiggerPockets</td><td>${stats.bp}</td><td>—</td><td>—</td></tr>
-      <tr><td style="padding:8px 12px">LinkedIn</td><td>${stats.linkedin}</td><td>—</td><td>—</td></tr>
+      <tr><td style="padding:8px 12px">LinkedIn (Serper+Apify)</td><td>${stats.linkedin}</td><td>—</td><td>—</td></tr>
       <tr style="background:#f9f9f9"><td style="padding:8px 12px">Google</td><td>${stats.google}</td><td>—</td><td>—</td></tr>
+      <tr><td style="padding:8px 12px">Reddit (Apify)</td><td>${stats.reddit||0}</td><td>—</td><td>—</td></tr>
+      <tr style="background:#f9f9f9"><td style="padding:8px 12px">Quora Deep (Apify)</td><td>${stats.apify_quora||0}</td><td>—</td><td>—</td></tr>
       <tr style="background:#0F1A2E;color:white;font-weight:bold">
         <td style="padding:8px 12px">TOTAL</td><td>${stats.total_raw}</td>
         <td>${stats.total_clean}</td><td>${stats.emails_sent}</td>
@@ -338,23 +532,30 @@ export async function run() {
   console.log('=== BizLegal AI Lead Engine START ===');
   const stats = { quora:0, bp:0, linkedin:0, google:0, total_raw:0, total_clean:0, emails_sent:0, clean_leads:[] };
 
-  // Phase 1: Scrape all sources in parallel
-  const [q, b, l, g] = await Promise.allSettled([
+  // Phase 1: Scrape all sources in parallel (Serper + Apify)
+  const [q, b, l, g, ali, ar, aq] = await Promise.allSettled([
     scrapeQuora(),
     scrapeBiggerPockets(),
     scrapeLinkedIn(),
     scrapeGoogle(),
+    apifyLinkedIn(),
+    apifyReddit(),
+    apifyQuoraDeep(),
   ]);
 
-  const quora    = q.status==='fulfilled' ? q.value : [];
-  const bp       = b.status==='fulfilled' ? b.value : [];
-  const linkedin = l.status==='fulfilled' ? l.value : [];
-  const google   = g.status==='fulfilled' ? g.value : [];
+  const quora       = q.status==='fulfilled'   ? q.value   : [];
+  const bp          = b.status==='fulfilled'   ? b.value   : [];
+  const linkedin    = l.status==='fulfilled'   ? l.value   : [];
+  const google      = g.status==='fulfilled'   ? g.value   : [];
+  const apifyLI     = ali.status==='fulfilled' ? ali.value : [];
+  const apifyRD     = ar.status==='fulfilled'  ? ar.value  : [];
+  const apifyQR     = aq.status==='fulfilled'  ? aq.value  : [];
 
   stats.quora=quora.length; stats.bp=bp.length;
-  stats.linkedin=linkedin.length; stats.google=google.length;
-  const all = [...quora, ...bp, ...linkedin, ...google];
+  stats.linkedin=linkedin.length + apifyLI.length; stats.google=google.length;
+  const all = [...quora, ...bp, ...linkedin, ...google, ...apifyLI, ...apifyRD, ...apifyQR];
   stats.total_raw = all.length;
+  console.log(`Apify sources: LinkedIn=${apifyLI.length}, Reddit=${apifyRD.length}, Quora=${apifyQR.length}`);
   console.log(`Phase 1 done: ${stats.total_raw} raw leads`);
 
   // Phase 2: Qualify with Claude
