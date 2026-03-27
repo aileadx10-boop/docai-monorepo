@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm install",
+  "outputDirectory": ".",
+  "framework": null,
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "0 7 * * *"
+    }
+  ]
+}
