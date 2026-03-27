@@ -1,0 +1,8 @@
+# Root gitignore — app-level gitignores in web/ and agents/ still apply
+node_modules/
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+.vercel
