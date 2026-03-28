@@ -1,34 +1,23 @@
 # DocAI Monorepo
 
-Two independent apps that together power the DocAI / DocStack product.
+This repository now centers on a single Next.js App Router app in `web/`.
 
-## Apps
+## Unified App
 
-### `web/` — Frontend (DocAI)
-The website, UI, and client-facing product.
+`web/` now contains:
+
+- the DocAI homepage and document-generation UI
+- `app/api/agents/*` contract agent routes
+- `app/api/documents/*` upload and scan routes
+- `app/api/payment/*` NOWPayments invoice and webhook handlers
+- `/report/[scan_id]` for the gated contract-risk report
+
+## Local Development
 
 ```bash
 cd web
-# no build step — static site served by Vercel
-```
-
-Deployed via Vercel project **doc-ai** → Root Directory: `web`
-
-### `agents/` — Backend Agents (DocAI-agents)
-Orchestrator, cron jobs, and serverless worker automations.
-
-```bash
-cd agents
 npm install
-node orchestrator.js
+npm run build
 ```
 
-Deployed via Vercel project **doc-ai-agents** → Root Directory: `agents`
-
-Cron: `/api/cron` runs daily at 07:00 UTC.
-
-## Communication
-`web` and `agents` are fully independent. They communicate only via HTTP — no shared code, no cross-imports, no shared `node_modules`.
-
-## Not legal advice
-All output from this product includes the disclaimer: "Not legal advice. For legal advice, consult a licensed attorney."
+The legacy split `agents/` app is no longer the deployment target.
