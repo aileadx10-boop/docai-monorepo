@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-
 import type { AnalyzeResult } from "@/lib/contract-analysis";
 
 type ReportViewProps = {
@@ -14,6 +10,7 @@ type ReportViewProps = {
   riskScore: number;
   analysis: AnalyzeResult;
   payoneerLink?: string | null;
+  invoiceError?: string | null;
 };
 
 function normalizeScore(score: number) {
@@ -43,40 +40,10 @@ export function ReportView({
   riskScore,
   analysis,
   payoneerLink,
+  invoiceError,
 }: ReportViewProps) {
-  const [billingEmail, setBillingEmail] = useState(email);
-  const [invoiceError, setInvoiceError] = useState("");
-  const [isCreatingInvoice, setIsCreatingInvoice] = useState(false);
   const visibleIssues = analysis.red_flags.slice(0, 2);
   const hiddenIssueCount = Math.max(0, analysis.red_flags.length - visibleIssues.length);
-
-  const handleCryptoCheckout = async () => {
-    if (!billingEmail.includes("@")) {
-      setInvoiceError("Enter the email that should receive the unlocked report.");
-      return;
-    }
-
-    setIsCreatingInvoice(true);
-    setInvoiceError("");
-
-    try {
-      const response = await fetch("/api/payment/invoice", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ scan_id: scanId, email: billingEmail }),
-      });
-
-      const payload = (await response.json()) as { invoice_url?: string; error?: string };
-      if (!response.ok || !payload.invoice_url) {
-        throw new Error(payload.error || "Invoice creation failed.");
-      }
-
-      window.location.href = payload.invoice_url;
-    } catch (error) {
-      setInvoiceError(error instanceof Error ? error.message : "Invoice creation failed.");
-      setIsCreatingInvoice(false);
-    }
-  };
 
   return (
     <div className="report-shell">
@@ -87,9 +54,9 @@ export function ReportView({
             <h1>{filename}</h1>
             <p className="section-subtitle">{contractType}</p>
           </div>
-          <button type="button" className="button-secondary" onClick={() => window.print()}>
+          <a className="button-secondary" href="javascript:window.print()">
             Print Report
-          </button>
+          </a>
         </div>
 
         <div className="report-summary">
@@ -136,31 +103,29 @@ export function ReportView({
                 <p className="section-subtitle">Crypto via NOWPayments · Card via Payoneer</p>
               </div>
 
-              <label className="field-group">
-                <span>Delivery email</span>
-                <input
-                  type="email"
-                  value={billingEmail}
-                  onChange={(event) => setBillingEmail(event.target.value)}
-                  placeholder="you@company.com"
-                />
-              </label>
+              <form className="paywall-form" action="/api/payment/checkout" method="POST">
+                <input type="hidden" name="scan_id" value={scanId} />
+                <label className="field-group">
+                  <span>Delivery email</span>
+                  <input type="email" name="email" defaultValue={email} placeholder="you@company.com" required />
+                </label>
 
-              {invoiceError ? <p className="error-line">{invoiceError}</p> : null}
+                {invoiceError ? <p className="error-line">{invoiceError}</p> : null}
 
-              <div className="paywall-actions">
-                <button className="button-primary" type="button" onClick={handleCryptoCheckout} disabled={isCreatingInvoice}>
-                  {isCreatingInvoice ? "Creating invoice..." : "Pay $24 Crypto"}
-                </button>
-                <a
-                  className={`button-secondary ${payoneerLink ? "" : "button-disabled"}`}
-                  href={payoneerLink || "#"}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Pay $29 By Card
-                </a>
-              </div>
+                <div className="paywall-actions">
+                  <button className="button-primary" type="submit">
+                    Pay $24 Crypto
+                  </button>
+                  <a
+                    className={`button-secondary ${payoneerLink ? "" : "button-disabled"}`}
+                    href={payoneerLink || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Pay $29 By Card
+                  </a>
+                </div>
+              </form>
             </div>
           </>
         ) : (

@@ -31,7 +31,7 @@ export async function createNOWPaymentsInvoice({
       order_id: scanId,
       order_description: description,
       ipn_callback_url: `${siteUrl}/api/payment/webhook`,
-      success_url: `${siteUrl}/report/${scanId}`,
+      success_url: `${siteUrl}/report?scan_id=${scanId}`,
       cancel_url: siteUrl,
       is_fee_paid_by_user: false,
       customer_email: email,

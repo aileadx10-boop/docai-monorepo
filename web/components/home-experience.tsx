@@ -330,7 +330,7 @@ export function HomeExperience({
 
       setScanStatus("Opening your gated report...");
       const scanData = scanPayload as ScanResponse;
-      startTransition(() => router.push(`/report/${scanData.scan_id}`));
+        startTransition(() => router.push(`/report?scan_id=${scanData.scan_id}`));
     } catch (error) {
       setScanError(error instanceof Error ? error.message : "Scan failed.");
       setScanStatus("");
