@@ -1,4 +1,4 @@
-# DorInnovations Social Media Links ✅
+# BizLegal AI Social Media Links ✅
 
 **Source:** `C:\Users\Moshe Dor\Downloads\DOR-INNOVATION\socials.xlsx`  
 **Updated:** 2025-03-22
@@ -9,12 +9,12 @@
 
 | Platform | Username | URL | Status |
 |----------|----------|-----|--------|
-| **Twitter/X** | @DorInnovations | https://x.com/DorInnovations | ✅ Integrated |
-| **LinkedIn** | DorInnovations | https://www.linkedin.com/company/DorInnovations | ✅ Integrated |
-| **Facebook** | DorInnovations | https://www.facebook.com/DorInnovations/ | ✅ Integrated |
-| **Instagram** | @dorinnovations | https://www.instagram.com/dorinnovations/ | ✅ Integrated |
-| **YouTube** | @DorInnovations | https://www.youtube.com/@DorInnovations | ✅ Integrated |
-| **Substack** | @dorinnovations | https://substack.com/@dorinnovations | ✅ Integrated |
+| **Twitter/X** | @BizLegal AI | https://x.com/BizLegal AI | ✅ Integrated |
+| **LinkedIn** | BizLegal AI | https://www.linkedin.com/company/BizLegal AI | ✅ Integrated |
+| **Facebook** | BizLegal AI | https://www.facebook.com/BizLegal AI/ | ✅ Integrated |
+| **Instagram** | @bizlegalai | https://www.instagram.com/bizlegalai/ | ✅ Integrated |
+| **YouTube** | @BizLegal AI | https://www.youtube.com/@BizLegal AI | ✅ Integrated |
+| **Substack** | @bizlegalai | https://substack.com/@bizlegalai | ✅ Integrated |
 | **Email** | — | mailto:ai.leadx10@gmail.com | ✅ Integrated |
 
 ---
@@ -27,12 +27,12 @@
 ### HTML Code
 ```html
 <div class="footer-social">
-  <a href="https://x.com/DorInnovations" ... class="social-icon">𝕏</a>
-  <a href="https://www.linkedin.com/company/DorInnovations" ... class="social-icon">in</a>
-  <a href="https://www.facebook.com/DorInnovations/" ... class="social-icon">f</a>
-  <a href="https://www.instagram.com/dorinnovations/" ... class="social-icon">📷</a>
-  <a href="https://www.youtube.com/@DorInnovations" ... class="social-icon">▶</a>
-  <a href="https://substack.com/@dorinnovations" ... class="social-icon">✍️</a>
+  <a href="https://x.com/BizLegal AI" ... class="social-icon">𝕏</a>
+  <a href="https://www.linkedin.com/company/BizLegal AI" ... class="social-icon">in</a>
+  <a href="https://www.facebook.com/BizLegal AI/" ... class="social-icon">f</a>
+  <a href="https://www.instagram.com/bizlegalai/" ... class="social-icon">📷</a>
+  <a href="https://www.youtube.com/@BizLegal AI" ... class="social-icon">▶</a>
+  <a href="https://substack.com/@bizlegalai" ... class="social-icon">✍️</a>
   <a href="mailto:ai.leadx10@gmail.com" ... class="social-icon">✉</a>
 </div>
 ```
@@ -45,8 +45,8 @@ Substack icon has custom orange hover color (`#ff5500`) to match brand.
 ## Account Information (from socials.xlsx)
 
 **Primary Email:** ai.leadx10@gmail.com  
-**Brand Name:** DorInnovations  
-**All Platforms:** Consistent @DorInnovations handle
+**Brand Name:** BizLegal AI  
+**All Platforms:** Consistent @BizLegal AI handle
 
 ---
 
@@ -62,11 +62,11 @@ Substack icon has custom orange hover color (`#ff5500`) to match brand.
 
 ## Additional Platforms (Not in Footer)
 
-**Pinterest:** https://www.pinterest.com/DorInnovations/
+**Pinterest:** https://www.pinterest.com/BizLegal AI/
 
 If you want to add Pinterest, you can add this line after Substack:
 ```html
-<a href="https://www.pinterest.com/DorInnovations/" ... class="social-icon">📌</a>
+<a href="https://www.pinterest.com/BizLegal AI/" ... class="social-icon">📌</a>
 ```
 
 ---

@@ -34,12 +34,12 @@
 
 | Platform | URL | Status |
 |----------|-----|--------|
-| Twitter/X | https://x.com/DorInnovations | ✅ |
-| LinkedIn | https://www.linkedin.com/company/DorInnovations | ✅ |
-| Facebook | https://www.facebook.com/DorInnovations/ | ✅ |
-| Instagram | https://www.instagram.com/dorinnovations/ | ✅ |
-| YouTube | https://www.youtube.com/@DorInnovations | ✅ |
-| Substack | https://substack.com/@dorinnovations | ✅ |
+| Twitter/X | https://x.com/BizLegal AI | ✅ |
+| LinkedIn | https://www.linkedin.com/company/BizLegal AI | ✅ |
+| Facebook | https://www.facebook.com/BizLegal AI/ | ✅ |
+| Instagram | https://www.instagram.com/bizlegalai/ | ✅ |
+| YouTube | https://www.youtube.com/@BizLegal AI | ✅ |
+| Substack | https://substack.com/@bizlegalai | ✅ |
 | Email | mailto:ai.leadx10@gmail.com | ✅ |
 
 ---
