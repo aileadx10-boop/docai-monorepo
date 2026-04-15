@@ -30,15 +30,22 @@ export async function POST(request: NextRequest) {
         payload.payment_id,
       ].filter(Boolean) as string[];
 
+      let matched = false;
       for (const candidate of candidates) {
-        const { error } = await supabaseAdmin
+        const { error, count } = await supabaseAdmin
           .from("contract_scans")
           .update({ paid: true })
           .or(`id.eq.${candidate},nowpayments_order_id.eq.${candidate}`);
 
         if (!error) {
+          matched = true;
+          console.log(`[docai/webhook] Marked paid via candidate: ${candidate}`);
           break;
         }
+      }
+
+      if (!matched) {
+        console.error(`[docai/webhook] No matching record found for candidates:`, candidates);
       }
     }
 
