@@ -1,6 +1,11 @@
 import type { Metadata } from "next"
 import LegalPage from "@/components/layout/LegalPage"
 import { DISCLAIMER_VERSION } from "@/lib/legal/disclaimer"
+import {
+  AUTO_DELIVER_THRESHOLD,
+  HUMAN_REVIEW_THRESHOLD,
+  RETRIEVAL_MIN_RELEVANCE,
+} from "@/lib/sqa"
 
 export const metadata: Metadata = {
   title: "Methodology — DocAI",
@@ -49,11 +54,36 @@ export default function MethodologyPage() {
 
           <h2 className="lp-h2">Confidence scoring.</h2>
           <p>
-            Every response carries a confidence score derived from retrieval overlap,
-            source-recency, and model self-reported uncertainty. Low-confidence responses are
-            flagged explicitly and forwarded to a human reviewer before delivery on paid tiers.
-            Free-tier responses ship with the confidence score visible; the user decides
-            whether to escalate.
+            Every response carries a confidence score in [0, 1] composed of four weighted
+            components, published as part of this methodology and versioned with the
+            disclosure stamp:
+          </p>
+          <ul style={{ fontSize: 13, lineHeight: 1.7, marginTop: 8 }}>
+            <li>
+              <strong>Retrieval signal (40%)</strong> — top-hit relevance from the knowledge
+              base.
+            </li>
+            <li>
+              <strong>Model certainty (35%)</strong> — 1 minus the model&apos;s reported
+              uncertainty.
+            </li>
+            <li>
+              <strong>Citation integrity (15%)</strong> — 1 if every claim in the draft
+              ties to a retrieved item, else 0.
+            </li>
+            <li>
+              <strong>Limits admitted (10%)</strong> — trust signal when the draft admits
+              what it does not know.
+            </li>
+          </ul>
+          <p style={{ marginTop: 8 }}>
+            Tiers at disclosure {DISCLAIMER_VERSION}:{" "}
+            score &ge; {AUTO_DELIVER_THRESHOLD} auto-delivers on free tiers;{" "}
+            {HUMAN_REVIEW_THRESHOLD} ≤ score &lt; {AUTO_DELIVER_THRESHOLD} routes to a
+            named human analyst; score &lt; {HUMAN_REVIEW_THRESHOLD} holds with a
+            request for more information from the submitter. Retrieval hits below{" "}
+            {RETRIEVAL_MIN_RELEVANCE} trigger the canonical &quot;out of scope&quot;
+            response automatically — no fabrication path.
           </p>
 
           <h2 className="lp-h2">Human review.</h2>

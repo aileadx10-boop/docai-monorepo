@@ -27,8 +27,7 @@ export function MethodologyBadge({
   const href = product && product !== "hub" ? `/methodology#${product}` : "/methodology"
   return (
     <Link
-      // typed routes: dynamic href computed from product prop
-      href={href as never}
+      href={href}
       className={className}
       aria-label="How we produced this: read the methodology"
       style={{
