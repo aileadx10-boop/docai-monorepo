@@ -157,7 +157,8 @@ export default function DocAIPricingPage() {
             DocAI drafts your SOC 2 / CAIQ / SIG-Lite responses, redlines
             contracts, and audits clauses. Free tier for one-off review;
             paid tiers for B2B SaaS teams who need this daily. Crypto via
-            NOWPayments, card via PayPal. 14-day money-back.
+            NOWPayments, card via PayPal. Cancel anytime; one-time
+            deliveries non-refundable once produced unless damaged or defective.
           </p>
         </div>
       </section>

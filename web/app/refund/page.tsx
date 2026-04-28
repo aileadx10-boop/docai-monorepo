@@ -31,46 +31,58 @@ export default function RefundPage() {
         <p style={{ fontSize: 13, color: 'rgba(218,226,253,0.4)', marginBottom: 40 }}>Last updated: April 2026</p>
 
         <div className="prose">
-          <h2>14-Day Money-Back Guarantee</h2>
+          <h2>1. Subscriptions — cancel anytime</h2>
           <p>
-            DocAI Hub by BizLegal AI offers a 14-day money-back guarantee. If you are not satisfied with your
-            document scan or generated contract, you may request a full refund within 14 days of purchase.
+            DocAI subscriptions (Starter, Team, Firm) can be cancelled at any time. Cancellation stops future
+            billing immediately. Access to scans, drafts, and SQA generation continues until the end of the period
+            you have already paid for. We do not pro-rate or refund mid-period unless we are at fault for an outage
+            that prevented you from using the product.
           </p>
 
-          <h2>Eligible for Refund</h2>
-          <ul>
-            <li>✓ Purchases within the last 14 days</li>
-            <li>✓ Technical errors preventing report delivery</li>
-            <li>✓ Duplicate charges for the same document</li>
-            <li>✓ Service outages that prevented access</li>
-          </ul>
-
-          <h2>Non-Refundable</h2>
-          <ul>
-            <li>✕ Full reports delivered more than 14 days ago</li>
-            <li>✕ Dissatisfaction with AI-generated analysis (see Disclaimer)</li>
-            <li>✕ Contract generation reports already downloaded and used</li>
-          </ul>
-
-          <h2>Document-Specific Terms</h2>
+          <h2>2. One-time deliveries — non-refundable once produced</h2>
           <p>
-            Once a full document analysis report has been delivered and the results accessed by email or download,
-            refunds are only available if a technical error prevented proper delivery. Free tier scans (limited
-            risk checks) are not eligible for refund as they are provided at no cost.
+            Document scans, contract drafts, redlines, SQA responses, and other one-time intelligence outputs are
+            non-refundable once we have produced and delivered the file. Once analyst time and compute have been
+            spent on your inputs, that cost cannot be returned to us.
+          </p>
+          <p>Two exceptions apply, and we honour them in full:</p>
+          <ul>
+            <li>
+              <strong>Damaged delivery</strong> — file is corrupted, unreadable, or missing material content.
+            </li>
+            <li>
+              <strong>Demonstrably defective output</strong> — wrong document analysed, wrong framework selected
+              (SOC 2 vs CAIQ vs SIG-Lite), or factual error confirmed against the cited sources.
+            </li>
+          </ul>
+          <p>
+            We attempt redelivery first. If the corrected output still fails specification, we issue a full refund.
           </p>
 
-          <h2>Pricing Tiers</h2>
-          <ul>
-            <li>Free Scan — $0 (limited risk check, no refund applicable)</li>
-            <li>Standard Report — $29</li>
-            <li>Professional Report — $69</li>
-            <li>Enterprise Report — $99</li>
-          </ul>
-
-          <h2>How to Request a Refund</h2>
+          <h2>3. Pre-delivery cancellation</h2>
           <p>
-            Email <a href="mailto:team@bizlegal-ai.com">team@bizlegal-ai.com</a> with your order ID and reason.
-            Refunds are processed within 5 business days to the original payment method.
+            If we have not yet started production on your one-time order, you can cancel and receive a full refund.
+            Most DocAI deliveries begin within minutes of payment confirmation; once started, the order falls under
+            section 2.
+          </p>
+
+          <h2>4. Free tier</h2>
+          <p>
+            Free SQA drafts and free contract scans are provided at no cost; no refund applies.
+          </p>
+
+          <h2>5. Crypto + chargebacks</h2>
+          <p>
+            NOWPayments transactions that have already finalised on-chain cannot be reversed. Where a refund is
+            approved, we issue it in the original cryptocurrency at the prevailing rate or as a credit toward future
+            DocAI work. Please contact us before opening a chargeback — we resolve almost all disputes directly.
+          </p>
+
+          <h2>6. How to request</h2>
+          <p>
+            Email <a href="mailto:team@bizlegal-ai.com">team@bizlegal-ai.com</a> with your order ID and a brief
+            description of the issue. Refunds approved under sections 2 or 3 are processed within 5 business days
+            to the original payment method.
           </p>
 
           <h2>Contact</h2>
