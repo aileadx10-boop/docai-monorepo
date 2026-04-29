@@ -8,6 +8,7 @@ import {
   type KnowledgeBaseItem,
 } from "@/lib/sqa";
 import { isFirmTierActive, listFirmKb } from "@/lib/sqa/firm-kb";
+import { logEventAsync } from "@/lib/ops/log";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -203,6 +204,22 @@ export async function POST(req: NextRequest) {
     // 2. Compose the draft via Sonnet
     const generate = buildGenerator();
     const draft = await compose(retrieval, generate);
+
+    logEventAsync({
+      type: "sqa.draft",
+      source: "docai",
+      ref_id: draft.draft_id,
+      email: email || undefined,
+      status: draft.out_of_scope ? "pending" : "ok",
+      metadata: {
+        framework,
+        confidence_tier: draft.confidence?.tier,
+        confidence_score: draft.confidence?.score,
+        out_of_scope: draft.out_of_scope,
+        firm_active: firmTierActive,
+        firm_kb_blended: firmKbCount,
+      },
+    });
 
     // 3. Return draft + tier-info (so the UI can render the
     //    "Firm KB applied" badge when relevant)
