@@ -62,6 +62,7 @@ const TEAM_TIER: PricingTierData = {
   features: [
     "50 contract analyses / mo",
     "50 SQA drafts / mo",
+    "DPA Negotiator (GDPR / CCPA / HIPAA) included",
     "AI drafting (clauses + redlines)",
     "Vendor questionnaire library (SOC 2, CAIQ, SIG-Lite, SIG, NIST)",
     "Custom prompt overrides",
@@ -97,7 +98,8 @@ const FIRM_TIER: PricingTierData = {
   features: [
     "150 contract analyses / mo",
     "150 SQA drafts / mo",
-    "KB upload (your firm's playbook)",
+    "Everything in Team (incl. DPA Negotiator)",
+    "KB upload of your firm's playbook (manage at /sqa/kb)",
     "API access (1k calls/mo)",
     "Custom clause library",
     "Dedicated onboarding",
