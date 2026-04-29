@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { logEventAsync } from '@/lib/ops/log'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 30
@@ -141,6 +142,42 @@ export async function POST(req: NextRequest) {
     if (updateErr) {
       console.error('[paypal/webhook] update failed', updateErr)
       return NextResponse.json({ error: 'update failed' }, { status: 500 })
+    }
+
+    if (typeof updates.status === 'string') {
+      const opsType =
+        updates.status === 'active'
+          ? 'payment.confirmed'
+          : updates.status === 'refunded'
+            ? 'payment.refunded'
+            : updates.status === 'cancelled' || updates.status === 'expired'
+              ? 'subscription.cancelled'
+              : updates.status === 'past_due'
+                ? 'payment.failed'
+                : null
+      if (opsType) {
+        const { data: orderRow } = await supabase
+          .from('payment_orders')
+          .select('user_email, amount_cents, product, tier, billing_interval, source')
+          .eq('id', orderId)
+          .maybeSingle()
+        logEventAsync({
+          type: opsType,
+          source: 'docai',
+          ref_id: String(orderId),
+          email: orderRow?.user_email ?? undefined,
+          amount_cents: orderRow?.amount_cents ?? undefined,
+          status: updates.status === 'active' ? 'ok' : 'failed',
+          metadata: {
+            gateway: 'paypal',
+            event_type: event.event_type,
+            product: orderRow?.product,
+            tier: orderRow?.tier,
+            interval: orderRow?.billing_interval,
+            order_source: orderRow?.source,
+          },
+        })
+      }
     }
 
     return NextResponse.json({ ok: true, status: updates.status })

@@ -7,6 +7,7 @@ import {
   type GenerateCallable,
 } from "@/lib/sqa"
 import { DPA_CLAUSES } from "@/lib/dpa/dpa-clauses"
+import { logEventAsync } from "@/lib/ops/log"
 
 export const dynamic = "force-dynamic"
 export const maxDuration = 60
@@ -123,6 +124,20 @@ export async function POST(req: NextRequest) {
     // 2. Compose via Sonnet
     const generate = buildGenerator(yourDpa)
     const draft = await compose(retrieval, generate)
+
+    logEventAsync({
+      type: "dpa.negotiation",
+      source: "docai",
+      ref_id: draft.draft_id,
+      email: email || undefined,
+      status: draft.out_of_scope ? "pending" : "ok",
+      metadata: {
+        framework,
+        confidence_tier: draft.confidence?.tier,
+        confidence_score: draft.confidence?.score,
+        out_of_scope: draft.out_of_scope,
+      },
+    })
 
     // 3. Return — note: revenue+liability framing in answer + disclosure
     return NextResponse.json({

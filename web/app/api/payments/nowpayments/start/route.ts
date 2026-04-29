@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { logEventAsync } from '@/lib/ops/log'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 30
@@ -108,6 +109,23 @@ export async function POST(req: NextRequest) {
       .from('payment_orders')
       .update({ gateway_invoice_id: invoice.id })
       .eq('id', order.id)
+
+    logEventAsync({
+      type: 'payment.intent',
+      source: 'docai',
+      ref_id: String(order.id),
+      email: body.email,
+      amount_cents: body.amount_cents,
+      status: 'pending',
+      metadata: {
+        gateway: 'nowpayments',
+        product: body.product,
+        tier: body.tier,
+        interval: body.interval,
+        invoice_id: invoice.id,
+        order_source: body.source,
+      },
+    })
 
     return NextResponse.json({
       order_id: order.id,

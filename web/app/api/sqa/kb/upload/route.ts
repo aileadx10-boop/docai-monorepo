@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { isFirmTierActive, upsertFirmKb } from "@/lib/sqa/firm-kb"
+import { logEventAsync } from "@/lib/ops/log"
 
 export const dynamic = "force-dynamic"
 export const maxDuration = 30
@@ -42,6 +43,19 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await upsertFirmKb(email, items)
+
+    logEventAsync({
+      type: "kb.uploaded",
+      source: "docai",
+      email,
+      status: result.errors.length > 0 ? "failed" : "ok",
+      metadata: {
+        inserted: result.inserted,
+        errors: result.errors.length,
+        firm_active: true,
+        payment_order_id: paywall.orderId,
+      },
+    })
 
     return NextResponse.json({
       ok: true,

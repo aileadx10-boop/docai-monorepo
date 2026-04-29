@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import crypto from 'node:crypto'
+import { logEventAsync } from '@/lib/ops/log'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 30
@@ -84,7 +85,7 @@ export async function POST(req: NextRequest) {
     // Find the order
     const { data: order } = await supabase
       .from('payment_orders')
-      .select('id, billing_interval, status')
+      .select('id, billing_interval, status, user_email, amount_cents, product, tier, source')
       .eq('id', ipn.order_id)
       .single()
 
@@ -137,9 +138,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'update failed' }, { status: 500 })
     }
 
-    // TODO: trigger Resend confirmation email when status → active.
-    // (Out of scope for foundation PR — wire up when actual products
-    // exist and confirmation copy is finalised.)
+    if (newStatus === 'active' || newStatus === 'failed' || newStatus === 'refunded') {
+      logEventAsync({
+        type:
+          newStatus === 'active'
+            ? 'payment.confirmed'
+            : newStatus === 'refunded'
+              ? 'payment.refunded'
+              : 'payment.failed',
+        source: 'docai',
+        ref_id: String(order.id),
+        email: order.user_email ?? undefined,
+        amount_cents: order.amount_cents,
+        status: newStatus === 'active' ? 'ok' : 'failed',
+        metadata: {
+          gateway: 'nowpayments',
+          product: order.product,
+          tier: order.tier,
+          interval: order.billing_interval,
+          payment_status: ipn.payment_status,
+          order_source: order.source,
+        },
+      })
+    }
 
     return NextResponse.json({ ok: true, status: newStatus ?? ipn.payment_status })
   } catch (err) {
