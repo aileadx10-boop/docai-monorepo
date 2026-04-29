@@ -7,6 +7,7 @@ import {
   type GenerateCallable,
   type KnowledgeBaseItem,
 } from "@/lib/sqa";
+import { isFirmTierActive, listFirmKb } from "@/lib/sqa/firm-kb";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -171,23 +172,40 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "invalid email" }, { status: 400 });
     }
 
-    // 1. Retrieve from seed KB. (When Moses populates the firm KB — Firm
-    //    tier — this gets swapped to a Supabase-backed KnowledgeStore.)
-    const kb = knowledgeStoreFromManifest(SEED_KB);
+    // 1. Retrieve from blended KB:
+    //    - Seed KB always available (free + Starter + Team + Firm tier)
+    //    - Firm-tier subscribers also get their uploaded items blended in
+    let firmKbCount = 0
+    let firmTierActive = false
+    let kbItems: KnowledgeBaseItem[] = SEED_KB
+
+    if (email) {
+      const paywall = await isFirmTierActive(email)
+      if (paywall.ok) {
+        firmTierActive = true
+        const firmItems = await listFirmKb(email)
+        firmKbCount = firmItems.length
+        // Firm items are returned to the retriever AS-IS. Their relevance
+        // ranking is determined by the same lexical matching as seed items.
+        kbItems = [...SEED_KB, ...firmItems]
+      }
+    }
+
+    const kb = knowledgeStoreFromManifest(kbItems);
     // Use framework as a topic filter so retrieval prioritises matching
     // KB items. Fall back to no filter if framework not supplied.
     const retrieval = await retrieve(kb, {
       text: question,
       topics: [framework],
-      limit: 6,
+      limit: firmTierActive ? 8 : 6,
     });
 
     // 2. Compose the draft via Sonnet
     const generate = buildGenerator();
     const draft = await compose(retrieval, generate);
 
-    // 3. Return draft (in beta this is free; paid tiers will gate by
-    //    payment_orders status — TODO when Firm tier KB upload lands)
+    // 3. Return draft + tier-info (so the UI can render the
+    //    "Firm KB applied" badge when relevant)
     return NextResponse.json({
       draft_id: draft.draft_id,
       question: draft.query,
@@ -197,6 +215,11 @@ export async function POST(req: NextRequest) {
       out_of_scope: draft.out_of_scope,
       disclaimer_version: draft.disclaimer_version,
       issued_at: draft.issued_at,
+      tier_info: {
+        firm_active: firmTierActive,
+        firm_kb_items_blended: firmKbCount,
+        seed_kb_items: SEED_KB.length,
+      },
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "unknown error";
