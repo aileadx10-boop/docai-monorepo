@@ -44,6 +44,9 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('bl-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`,
           }}
         />
+        {/* Plausible Analytics */}
+        <script async src="https://plausible.io/js/pa-OvGpjlSVazGwJYd63q4p8.js" />
+        <script dangerouslySetInnerHTML={{ __html: `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()` }} />
       </head>
       <body className={`${dmSans.variable} ${dmMono.variable} ${playfair.variable}`}>
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 16px', fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase', background: 'var(--bl-bg-low, #0b1326)', borderBottom: '1px solid var(--bl-divider, rgba(218,226,253,0.08))', color: 'var(--bl-text-muted, rgba(218,226,253,0.4))', fontFamily: 'var(--bl-font-mono, var(--font-mono))' }}>
